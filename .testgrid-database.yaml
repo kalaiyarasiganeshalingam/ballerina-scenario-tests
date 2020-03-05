@@ -18,14 +18,11 @@
 version: '0.9'
 emailToList: "kalaiyarasi@wso2.com"
 infrastructureConfig:
-  iacProvider: None
   infrastructureProvider: SHELL
   containerOrchestrationEngine: K8S
   includes:
-    - Postgres-10.5
-    - MySQL-5.7
-    - SQLServer-SE-13.00
-    - Oracle-SE1-11.2
+    - Ubuntu-18.04
+    - OracleJDK-8
   provisioners:
     - name: ballerina-deployment
       remoteRepository: "https://github.com/kalaiyarasiganeshalingam/ballerina-scenario-tests.git"
@@ -36,17 +33,35 @@ infrastructureConfig:
           description: Creates Kubernetes infrastructure for a database and ballerina installed instance.
           type: SHELL
           phase: CREATE
-          file: test-grid-scripts/database/create_database_infrastructure.sh
+          file: test-grid-scripts/common/common_infra.sh
         - name: destroy
-          file: test-grid-scripts/database/destroy_database_infrastructure.sh
+          file: test-grid-scripts/common/common_cleanup.sh
           type: SHELL
           phase: DESTROY
+deploymentConfig:
+  deploymentPatterns:
+    - name: 'data-backed-service'
+      description: 'data-backed-service BBG tests'
+      remoteRepository: "https://github.com/kalaiyarasiganeshalingam/ballerina-scenario-tests.git"
+      remoteBranch: "database"
+      dir: .
+      scripts:
+        - name: 'default'
+          type: SHELL
+          file: test-grid-scripts/bbg/data/deployment-data-backed-service.sh
+          inputParameters:
+            #BallerinaVersionType: "LatestSnapshot" #LatestSnapshot/RC
+            #BallerinaVersionType: "RC"
+            #BallerinaVersion: "0.991.0"
+            #RCLocation: "https://product-dist.ballerina.io/nightly/0.992.0-m2-SNAPSHOT/ballerina-0.992.0-m2-SNAPSHOT.zip"
+            isDebugEnabled: "true"
+            TestGroup: "DataBackedService"
 scenarioConfigs:
   - testType: TESTNG
-    remoteRepository: "https://github.com/kalaiyarasiganeshalingam/ballerina-scenario-tests.git"
-    remoteBranch: "database"
+    remoteRepository: "https://github.com/ballerina-platform/ballerina-scenario-tests.git"
+    remoteBranch: "master"
     name: "ballerinaScenarios"
     description: "ballerina-scenarios"
-    file: test-grid-scripts/database/test-runner.sh
+    file: test-grid-scripts/bbg/data/test-runner.sh
     inputParameters:
       isDebugEnabled: "true"
