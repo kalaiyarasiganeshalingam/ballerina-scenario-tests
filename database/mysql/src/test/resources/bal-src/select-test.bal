@@ -168,7 +168,7 @@ function setUpDatetimeData(int date, int time, int datetime, int timestamp) {
    jdbc:Parameter para3 = { sqlType: jdbc:TYPE_TIMESTAMP, value: datetime };
    jdbc:Parameter para4 = { sqlType: jdbc:TYPE_TIMESTAMP, value: timestamp };
 
-   var insertRet = testDB->update(stmt, 1, para1, para2, para3, para4, 2019);
+   var insertRet = testDB->update(stmt, false, 1, para1, para2, para3, para4, 2019);
    if (insertRet is error) {
        error err = insertRet;
        anydata|error detailContent = err.detail()["message"];
@@ -205,7 +205,7 @@ function setupDatetimeRecordData() returns [int, int, int, int] {
     jdbc:Parameter para3 = { sqlType: jdbc:TYPE_DATETIME, value: datetimeRecord };
     jdbc:Parameter para4 = { sqlType: jdbc:TYPE_TIMESTAMP, value: timestampRecord };
 
-    _ = checkpanic testDB->update("Insert into SELECT_UPDATE_TEST_DATETIME_TYPES values (?,?,?,?,?,?)",
+    _ = checkpanic testDB->update("Insert into SELECT_UPDATE_TEST_DATETIME_TYPES values (?,?,?,?,?,?)", false,
         para0, para1, para2, para3, para4, 2019);
     return [dateInserted, timeInserted, datetimeInserted, timestampInserted];
 }

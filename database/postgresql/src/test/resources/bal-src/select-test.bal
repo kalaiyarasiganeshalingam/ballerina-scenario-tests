@@ -171,7 +171,7 @@ function setupDatetimeData() returns [int, int, int, int, int] {
     jdbc:Parameter para5 = { sqlType: jdbc:TYPE_TIMESTAMP, value: timestampzRecord };
 
     _ = checkpanic testDB->update("Insert into SELECT_UPDATE_TEST_DATETIME_TYPES values (?,?,?,?,?,?)",
-        para0, para1, para2, para3, para4, para5);
+        false, para0, para1, para2, para3, para4, para5);
     return [dateInserted, timeInserted, timezInserted, timestampInserted, timestampzInserted];
 }
 

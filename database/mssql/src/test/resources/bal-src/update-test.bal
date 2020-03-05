@@ -182,7 +182,7 @@ function testUpdateDateTimeWithValuesParam() returns @tainted [jdbc:UpdateResult
 }
 
 function testGeneratedKeyOnInsert() returns jdbc:UpdateResult | error {
-    return testDB->update("INSERT INTO UPDATE_TEST_GENERATED_KEYS (COL1, COL2) VALUES ('abc', 92)");
+    return testDB->update("INSERT INTO UPDATE_TEST_GENERATED_KEYS (COL1, COL2) VALUES ('abc', 92)", true);
 }
 
 function runInsertQueryWithValues(string tableName, (int | float | string | byte[] | decimal)... parameters)
@@ -199,7 +199,7 @@ returns jdbc:UpdateResult | error {
             i = i + 1;
         }
     }
-    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", ...parameters);
+    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", false, ...parameters);
 }
 
 function runInsertQueryWithParams(string tableName, jdbc:Parameter... parameters)
@@ -216,7 +216,7 @@ returns jdbc:UpdateResult | error {
             i = i + 1;
         }
     }
-    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", ...parameters);
+    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", false, ...parameters);
 }
 
 function runSelectSetQuery(string tableName, string id, typedesc<record{}> recordType, string... fields)

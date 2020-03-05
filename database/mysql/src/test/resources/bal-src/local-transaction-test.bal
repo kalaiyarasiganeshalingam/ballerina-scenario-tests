@@ -48,11 +48,11 @@ function testSelectFullIterateUpdate() returns [int, int, int, int] {
               iterationCount = iterationCount + 1;
            }
         }
-        var updateRet1 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", 2, "Dummy");
+        var updateRet1 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", false, 2, "Dummy");
         if (updateRet1 is jdbc:UpdateResult) {
             firstUpdateRet = updateRet1.updatedRowCount;
         }
-        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", 3, "Dummy");
+        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", false, 3, "Dummy");
         if (updateRet2 is jdbc:UpdateResult) {
             secondUpdateRet = updateRet2.updatedRowCount;
         }
@@ -76,11 +76,11 @@ function testSelectPartialIterateUpdate() returns [int, int, int, int] {
                 break;
             }
         }
-        var updateRet1 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", 4, "Dummy");
+        var updateRet1 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", false, 4, "Dummy");
         if (updateRet1 is jdbc:UpdateResult) {
             firstUpdateRet = updateRet1.updatedRowCount;
         }
-        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", 5, "Dummy");
+        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", false, 5, "Dummy");
         if (updateRet2 is jdbc:UpdateResult) {
             secondUpdateRet = updateRet2.updatedRowCount;
         }
@@ -99,11 +99,11 @@ function testSelectCloseUpdate() returns [int, int, int] {
         if (selectRet1 is table<record{}>) {
             selectRet1.close();
         }
-        var updateRet1 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", 6, "Dummy");
+        var updateRet1 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", false, 6, "Dummy");
         if (updateRet1 is jdbc:UpdateResult) {
             firstUpdateRet = updateRet1.updatedRowCount;
         }
-        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", 7, "Dummy");
+        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", false, 7, "Dummy");
         if (updateRet2 is jdbc:UpdateResult) {
             secondUpdateRet = updateRet2.updatedRowCount;
         }
@@ -119,7 +119,7 @@ function testUpdateSelectPartialIterateUpdate() returns [int, int, int, int] {
     int firstUpdateRet = -1;
     int secondUpdateRet = -1;
     transaction {
-        var updateRet1 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", 8, "Dummy");
+        var updateRet1 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", false, 8, "Dummy");
         if (updateRet1 is jdbc:UpdateResult) {
             firstUpdateRet = updateRet1.updatedRowCount;
         }
@@ -131,7 +131,7 @@ function testUpdateSelectPartialIterateUpdate() returns [int, int, int, int] {
                 break;
             }
         }
-        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", 9, "Dummy");
+        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", false, 9, "Dummy");
         if (updateRet2 is jdbc:UpdateResult) {
             secondUpdateRet = updateRet2.updatedRowCount;
         }
@@ -147,7 +147,7 @@ function testUpdateWithGeneratedKeysSelectFullIterate() returns @tainted [int, s
     int firstUpdateRet = -1;
     int secondUpdateRet = -1;
     transaction {
-        var updateRet1 = testDB->update("INSERT INTO TRX_TEST_AUTO_GEN_KEY (ID, VAL) VALUES(?, ?)", 10, "Dummy");
+        var updateRet1 = testDB->update("INSERT INTO TRX_TEST_AUTO_GEN_KEY (ID, VAL) VALUES(?, ?)", true, 10, "Dummy");
         if (updateRet1 is jdbc:UpdateResult) {
             firstUpdateRet = updateRet1.updatedRowCount;
         } else {
@@ -164,7 +164,7 @@ function testUpdateWithGeneratedKeysSelectFullIterate() returns @tainted [int, s
            error e = selectRet1;
            io:println(e.detail()["message"]);
         }
-        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", 10, "Dummy");
+        var updateRet2 = testDB->update("INSERT INTO TRX_TEST VALUES(?, ?)", false, 10, "Dummy");
         if (updateRet2 is jdbc:UpdateResult) {
             secondUpdateRet = updateRet2.updatedRowCount;
         } else {

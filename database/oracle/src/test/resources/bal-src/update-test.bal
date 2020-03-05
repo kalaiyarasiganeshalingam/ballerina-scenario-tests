@@ -195,7 +195,7 @@ returns jdbc:UpdateResult | error {
             i = i + 1;
         }
     }
-    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", ...parameters);
+    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", false, ...parameters);
 }
 
 
@@ -213,7 +213,7 @@ returns jdbc:UpdateResult | error {
             i = i + 1;
         }
     }
-    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", ...parameters);
+    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", false, ...parameters);
 }
 
 function runSelectAllQuery(string tableName, int id, typedesc<record{}> recordType) returns @tainted record{} | error {

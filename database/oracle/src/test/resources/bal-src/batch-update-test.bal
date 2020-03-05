@@ -145,7 +145,7 @@ function runInsertQueryWithParams(string tableName, int paramCount, jdbc:Paramet
         }
     }
     jdbc:BatchUpdateResult result = testDB->batchUpdate("INSERT INTO " + tableName + " VALUES(" + paramString + ")",
-    false, ...parameters);
+    false, false, ...parameters);
 
     int[] updatedRowCounts = result.updatedRowCount;
     jdbc:Error? e = result.returnedError;

@@ -283,8 +283,8 @@ function setUpDatetimeData(int date, int time, int datetime, int timestamp) {
     jdbc:Parameter smallDateTimeVal = { sqlType: jdbc:TYPE_DATETIME, value: datetime };
     jdbc:Parameter timeVal = { sqlType: jdbc:TYPE_TIME, value: time };
 
-    var insertRet = testDB->update(stmt, id, dateVal, dateTimeOffsetVal, dateTimeVal, dateTime2Val, smallDateTimeVal,
-                                    timeVal);
+    var insertRet = testDB->update(stmt, false, id, dateVal, dateTimeOffsetVal, dateTimeVal, dateTime2Val,
+                                   smallDateTimeVal, timeVal);
     if (insertRet is error) {
         error err = insertRet;
         anydata|error detailContent = err.detail()["message"];

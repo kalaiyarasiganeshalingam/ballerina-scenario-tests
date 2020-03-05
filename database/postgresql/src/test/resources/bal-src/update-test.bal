@@ -174,11 +174,11 @@ function testUpdateDateTimeWithValues() returns jdbc:UpdateResult | error {
 }
 
 function testGeneratedKeyOnInsert() returns jdbc:UpdateResult | error {
-    return testDB->update("INSERT INTO UPDATE_TEST_GENERATED_KEYS (COL1, COL2) VALUES ('abc', 92)");
+    return testDB->update("INSERT INTO UPDATE_TEST_GENERATED_KEYS (COL1, COL2) VALUES ('abc', 92)", true);
 }
 
 function testGeneratedKeyOnInsertEmptyResults() returns jdbc:UpdateResult | error {
-    return testDB->update("INSERT INTO UPDATE_TEST_GENERATED_KEYS_NO_KEY (COL1, COL2) VALUES ('xyz', 24)");
+    return testDB->update("INSERT INTO UPDATE_TEST_GENERATED_KEYS_NO_KEY (COL1, COL2) VALUES ('xyz', 24)", true);
 }
 
 function runInsertQueryWithValues(string tableName, (int | float | string | byte[])... parameters)
@@ -195,7 +195,7 @@ function runInsertQueryWithValues(string tableName, (int | float | string | byte
             i = i + 1;
         }
     }
-    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", ...parameters);
+    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", false, ...parameters);
 }
 
 
@@ -213,7 +213,7 @@ function runInsertQueryWithParams(string tableName, jdbc:Parameter... parameters
             i = i + 1;
         }
     }
-    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", ...parameters);
+    return testDB->update("INSERT INTO " + tableName + " VALUES(" + paramString + ")", false, ...parameters);
 }
 
 function runSelectSetQuery(string tableName, int id, typedesc<record{}> recordType, string... fields) returns @tainted record{} | error {
