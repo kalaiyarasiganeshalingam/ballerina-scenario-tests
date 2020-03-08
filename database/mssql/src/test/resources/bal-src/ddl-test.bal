@@ -24,39 +24,39 @@ jdbc:Client testDB = new({
 });
 
 function testCreateTable() returns jdbc:UpdateResult|error {
-    return testDB->update("CREATE TABLE DDL_TEST_CREATE_TABLE(X INT, Y VARCHAR(20))");
+    return testDB->update("CREATE TABLE DDL_TEST_CREATE_TABLE(X INT, Y VARCHAR(20))", false);
 }
 
 function testAlterTable() returns jdbc:UpdateResult|error {
-    return testDB->update("ALTER TABLE DDL_TEST_ALTER_TABLE ALTER COLUMN Y VARCHAR (30) NOT NULL");
+    return testDB->update("ALTER TABLE DDL_TEST_ALTER_TABLE ALTER COLUMN Y VARCHAR (30) NOT NULL", false);
 }
 
 function testDropTable() returns jdbc:UpdateResult|error {
-    return testDB->update("DROP TABLE DDL_TEST_DROP_TABLE");
+    return testDB->update("DROP TABLE DDL_TEST_DROP_TABLE", false);
 }
 
 function testCreateProcedure() returns jdbc:UpdateResult|error {
     var retCall = testDB->update("CREATE PROCEDURE DDL_TEST_CREATE_PROC AS BEGIN INSERT INTO DDL_TEST_PROC_TABLE VALUES(1, 'Text'); END;");
-    retCall = testDB->update("EXECUTE DDL_TEST_CREATE_PROC;");
+    retCall = testDB->update("EXECUTE DDL_TEST_CREATE_PROC;", false);
     return retCall;
 }
 
 function testAlterProcedure() returns jdbc:UpdateResult|error {
     var retCall = testDB->update("ALTER PROCEDURE DDL_TEST_ALTER_PROC AS BEGIN INSERT INTO DDL_TEST_PROC_TABLE VALUES(2, 'Sample'); END;");
-    retCall = testDB->update("EXECUTE DDL_TEST_ALTER_PROC;");
+    retCall = testDB->update("EXECUTE DDL_TEST_ALTER_PROC;", false);
     return retCall;
 }
 
 function testDropProcedure() returns jdbc:UpdateResult|error {
-    return testDB->update("DROP PROCEDURE DDL_TEST_DROPPING_PROC");
+    return testDB->update("DROP PROCEDURE DDL_TEST_DROPPING_PROC", false);
 }
 
 function testCreateIndex() returns jdbc:UpdateResult|error {
-    return testDB->update("CREATE INDEX DDL_TEST_CREATING_INDEX ON DDL_TEST_ALTER_TABLE(X, Y)");
+    return testDB->update("CREATE INDEX DDL_TEST_CREATING_INDEX ON DDL_TEST_ALTER_TABLE(X, Y)", false);
 }
 
 function testDropIndex() returns jdbc:UpdateResult|error {
-    return testDB->update("DROP INDEX DDL_TEST_DROP_INDEX ON DDL_TEST_ALTER_TABLE");
+    return testDB->update("DROP INDEX DDL_TEST_DROP_INDEX ON DDL_TEST_ALTER_TABLE", false);
 }
 
 function stopDatabaseClient() {

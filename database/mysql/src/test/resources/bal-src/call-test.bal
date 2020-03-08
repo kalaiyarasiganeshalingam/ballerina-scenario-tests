@@ -193,7 +193,7 @@ function setUpDatetimeData(int date, int time, int datetime, int timestamp) {
     jdbc:Parameter para3 = { sqlType: jdbc:TYPE_TIMESTAMP, value: datetime };
     jdbc:Parameter para4 = { sqlType: jdbc:TYPE_TIMESTAMP, value: timestamp };
 
-    var insertRet = testDB->update(stmt, 1, para1, para2, para3, para4, 2019);
+    var insertRet = testDB->update(stmt,false, 1, para1, para2, para3, para4, 2019);
     if (insertRet is error) {
         error err = insertRet;
         anydata|error detailContent = err.detail()["message"];

@@ -24,31 +24,32 @@ jdbc:Client testDB = new({
     });
 
 function testCreateTable() returns jdbc:UpdateResult | error {
-    return testDB->update("CREATE TABLE IF NOT EXISTS DDL_TEST_CREATE_TABLE(X INT, Y VARCHAR(20))");
+    return testDB->update("CREATE TABLE IF NOT EXISTS DDL_TEST_CREATE_TABLE(X INT, Y VARCHAR(20))", false);
 }
 
 function testAlterTable() returns jdbc:UpdateResult | error {
-    return testDB->update("ALTER TABLE DDL_TEST_ALTER_TABLE ALTER COLUMN X TYPE INT");
+    return testDB->update("ALTER TABLE DDL_TEST_ALTER_TABLE ALTER COLUMN X TYPE INT", false);
 }
 
 function testDropTable() returns jdbc:UpdateResult | error {
-    return testDB->update("DROP TABLE DDL_TEST_DROP_TABLE");
+    return testDB->update("DROP TABLE DDL_TEST_DROP_TABLE", false);
 }
 
 function testCreateProcedure() returns jdbc:UpdateResult | error {
-    return testDB->update("CREATE PROCEDURE DDL_TEST_CREATE_PROC(IN X INT, OUT Y VARCHAR(50), INOUT Z BOOLEAN) BEGIN SELECT \"DDL_TEST_CREATE_PROC called\" END");
+    return testDB->update("CREATE PROCEDURE DDL_TEST_CREATE_PROC(IN X INT, OUT Y VARCHAR(50), INOUT Z BOOLEAN)
+    BEGIN SELECT \"DDL_TEST_CREATE_PROC called\" END", false);
 }
 
 function testDropProcedure() returns jdbc:UpdateResult | error {
-    return testDB->update("DROP PROCEDURE DDL_TEST_DROPPING_PROC");
+    return testDB->update("DROP PROCEDURE DDL_TEST_DROPPING_PROC", false);
 }
 
 function testCreateIndex() returns jdbc:UpdateResult | error {
-    return testDB->update("CREATE INDEX DDL_TEST_CREATING_INDEX ON DDL_TEST_TABLE");
+    return testDB->update("CREATE INDEX DDL_TEST_CREATING_INDEX ON DDL_TEST_TABLE", false);
 }
 
 function testDropIndex() returns jdbc:UpdateResult | error {
-    return testDB->update("DROP INDEX DDL_TEST_DROP_INDEX ON DDL_TEST_TABLE");
+    return testDB->update("DROP INDEX DDL_TEST_DROP_INDEX ON DDL_TEST_TABLE", false);
 }
 
 function stopDatabaseClient() {
