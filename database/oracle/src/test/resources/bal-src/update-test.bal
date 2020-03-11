@@ -178,7 +178,7 @@ function testUpdateDateTimeWithValuesParam() returns jdbc:UpdateResult | error {
 }
 
 function testGeneratedKeyOnInsert() returns jdbc:UpdateResult | error {
-    return testDB->update("INSERT INTO UPDATE_GENERATED_KEYS (COL1) VALUES ('abc')", false);
+    return testDB->update("INSERT INTO UPDATE_GENERATED_KEYS (COL1) VALUES ('abc')");
 }
 
 function runInsertQueryWithValues(string tableName, (int | float | string | byte[])... parameters)

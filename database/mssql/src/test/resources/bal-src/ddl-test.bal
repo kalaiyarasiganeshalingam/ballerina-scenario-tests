@@ -32,31 +32,31 @@ function testAlterTable() returns jdbc:UpdateResult|error {
 }
 
 function testDropTable() returns jdbc:UpdateResult|error {
-    return testDB->update("DROP TABLE DDL_TEST_DROP_TABLE", false);
+    return testDB->update("DROP TABLE DDL_TEST_DROP_TABLE");
 }
 
 function testCreateProcedure() returns jdbc:UpdateResult|error {
     var retCall = testDB->update("CREATE PROCEDURE DDL_TEST_CREATE_PROC AS BEGIN INSERT INTO DDL_TEST_PROC_TABLE VALUES(1, 'Text'); END;");
-    retCall = testDB->update("EXECUTE DDL_TEST_CREATE_PROC;", false);
+    retCall = testDB->update("EXECUTE DDL_TEST_CREATE_PROC;");
     return retCall;
 }
 
 function testAlterProcedure() returns jdbc:UpdateResult|error {
     var retCall = testDB->update("ALTER PROCEDURE DDL_TEST_ALTER_PROC AS BEGIN INSERT INTO DDL_TEST_PROC_TABLE VALUES(2, 'Sample'); END;");
-    retCall = testDB->update("EXECUTE DDL_TEST_ALTER_PROC;", false);
+    retCall = testDB->update("EXECUTE DDL_TEST_ALTER_PROC;");
     return retCall;
 }
 
 function testDropProcedure() returns jdbc:UpdateResult|error {
-    return testDB->update("DROP PROCEDURE DDL_TEST_DROPPING_PROC", false);
+    return testDB->update("DROP PROCEDURE DDL_TEST_DROPPING_PROC";
 }
 
 function testCreateIndex() returns jdbc:UpdateResult|error {
-    return testDB->update("CREATE INDEX DDL_TEST_CREATING_INDEX ON DDL_TEST_ALTER_TABLE(X, Y)", false);
+    return testDB->update("CREATE INDEX DDL_TEST_CREATING_INDEX ON DDL_TEST_ALTER_TABLE(X, Y)");
 }
 
 function testDropIndex() returns jdbc:UpdateResult|error {
-    return testDB->update("DROP INDEX DDL_TEST_DROP_INDEX ON DDL_TEST_ALTER_TABLE", false);
+    return testDB->update("DROP INDEX DDL_TEST_DROP_INDEX ON DDL_TEST_ALTER_TABLE");
 }
 
 function stopDatabaseClient() {
