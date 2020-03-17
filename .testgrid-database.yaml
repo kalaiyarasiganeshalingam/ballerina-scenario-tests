@@ -58,8 +58,8 @@ deploymentConfig:
             TestGroup: "DataBackedService"
 scenarioConfigs:
   - testType: TESTNG
-    remoteRepository: "https://github.com/ballerina-platform/ballerina-scenario-tests.git"
-    remoteBranch: "master"
+    remoteRepository: "https://github.com/kalaiyarasiganeshalingam/ballerina-scenario-tests.git"
+    remoteBranch: "database"
     name: "ballerinaScenarios"
     description: "ballerina-scenarios"
     file: test-grid-scripts/bbg/data/test-runner.sh
